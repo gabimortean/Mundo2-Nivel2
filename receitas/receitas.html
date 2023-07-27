@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Receitas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <h1 class="text-left mt-4">Catálogo de Receitas</h1>
+        <div class="pnlCatalogo mt-4">
+        </div>
+    </div>
+
+    <script>
+        const receitas = [
+            {
+                id: '001',
+                título: 'Costelinha Barbebue',
+                preparo: 'Em uma tigela coloque o alho em pó, a cebola em pó, a páprica picante, a pimenta do reino, o sal e o molho inglês e mexa bem. Coloque folhas de papel alumínio em cima de uma assadeira e bem no meio acomode a costela suína. Tempere dos dois lados com a mistura de temperos. Feche a costela com o papel alumínio. Leve ao forno 160ºC por 1 hora e 30 minutos. Retire do forno, abra o papel alumínio pincele por toda costelinha um pouco de molho barbecue e leve ao forno por mais 15 minutos a 200ºC para ela dar uma dourada. Retire do forno e coloque o restante do molho barbecue por cima.',
+                ingredientes: [
+                    '800 g de Costela suína',
+                    '8 g de Alho em pó',
+                    '12 g de cebola em pó',
+                    '12 g de páprica picante',
+                    '4 g de Cominho em pó',
+                    '1 g de Pimenta do reino',
+                    '15 g de Açúcar mascavo',
+                    '7 g de sal',
+                    '45 mL de molho inglês',
+                    '72 g de Molho barbecue'
+                ],
+                imagem: 'images/001.jpg'
+            },
+            {
+                id: '002',
+                título: 'Gelato de Baunilha',
+                preparo: 'Misture o leite, a baunilha, o leite condensado e a pitadinha de sal. Reserve. Em uma batedeira, bata o creme de leite até ficar mais firme. Adicione a mistura com o leite condensado. Coloque em um recipiente e leve para o congelador por 2 horas. Tire do congelador e mexa bem com uma colher. Leve para gelar por mais 2 horas e sirva.',
+                ingredientes: [
+                    '1/2 xícara de leite gelado',
+                    '1 colher (sopa) de essência de baunilha',
+                    '1 lata de leite condensado',
+                    '1 pitadinha de sal',
+                    '475 ml de creme de leite sem soro ou fresco'
+                ],
+                imagem: 'images/002.jpg'
+            },
+            {
+                id: '003',
+                título: 'Petit Gateau',
+                preparo: 'Derreta a manteiga e o chocolate em banho-maria. Bata os ovos e as gemas com açúcar na batedeira, até ficar bem claro. Junte o chocolate derretido e a farinha de trigo, misturando com uma espátula. Depois, unte as forminhas de empadinha, passe farinha de trigo e coloque a massa. Preaqueça o forno e leve para assar de 6 a 10 minutos (em fogo alto) até os bolinhos crescerem, mas o meio deve ficar molinho. Deve-se desenformar ainda quente. Sirva diretamente no prato, acompanhado com sorvete de creme.',
+                ingredientes: [
+                    '200 g de chocolate meio amargo',
+                    '2 colheres de manteiga sem sal',
+                    '1/4 xícara (chá) de açúcar',
+                    '2 colheres (sopa) rasas de farinha de trigo',
+                    '2 ovos inteiros (tire a pele da gema)',
+                    '2 gemas'
+                ],
+                imagem: 'images/003.jpg'
+            }
+        ];
+
+        function getListaIngredientes(ingredientes) {
+            const listaHTML = ingredientes.map(ingrediente => `<li>${ingrediente}</li>`).reduce((acc, item) => acc + item, '');
+            return `<ul>${listaHTML}</ul>`;
+        }
+
+        function getCard(receita) {
+            const listaIngredientesHTML = getListaIngredientes(receita.ingredientes);
+            return `
+                <div class="card m-3" style="width: 20rem;">
+                    <img class="card-img-top" src="${receita.imagem}" alt="${receita.título}">
+                    <div class="card-body">
+                        <h5 class="card-title">${receita.título}</h5>
+                        <div class="card-text">
+                            ${listaIngredientesHTML}
+                            <hr>
+                            <p>${receita.preparo}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function preencheCatalogo() {
+            const pnlCatalogo = document.querySelector('.pnlCatalogo');
+
+            const paineisReceitasHTML = receitas.map(receita => getCard(receita)).reduce((acc, item) => acc + item, '');
+
+            pnlCatalogo.innerHTML = paineisReceitasHTML;
+        }
+
+        window.onload = function() {
+            preencheCatalogo();
+        };
+    </script>
+</body>
+</html>
